@@ -1,0 +1,123 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "標楷體";
+    text-align: center;
+}
+
+main,
+.top,
+section,
+aside,
+.update,
+.container,
+marquee,
+footer {
+    outline: 1px solid #ccc;
+}
+
+ul,
+li {
+    list-style: none;
+    padding-left: 0;
+}
+
+main {
+    width: 1024px;
+    height: 768px;
+    padding: 2px 12px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+
+}
+
+img {
+    width: 100%;
+}
+
+iframe {
+    width: 100%;;
+    margin: 0 auto;
+    flex-grow: 1;
+}
+.top {
+    width: 1000px;
+    height: 65px;
+}
+
+section {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+aside {
+    width: 215px;
+    position: relative;
+}
+
+aside h4 {
+    display: inline-block;
+    font-size: 24px;
+    font-weight: 500;
+    color: #FF00FF;
+    border-bottom: 1px solid #000;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.menu-list {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.menu-list li {
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.menu-list li + li a {
+    text-decoration: none;
+    color: #000;
+    cursor: auto;
+}
+
+.menu-list a {
+    display: inline-block;
+    background: url(./images/menu1.png)no-repeat center center;
+    background-size: contain;
+    padding: 8px 70px;
+}
+
+.menu-list a:hover {
+    background: url(./images/menu2.png)no-repeat center center;
+    background-size: contain;
+}
+
+.update {
+    height: 25px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.container {
+    width: 770px;
+    display: flex;
+    flex-direction: column;
+}
+
+marquee {
+    width: 770px;
+    height: 29px;
+    font-size: 24px;
+    color: #0000FF;
+}
+
+.footer {
+    height: 20px;
+}
