@@ -47,20 +47,6 @@ table {
 	border-spacing: 0;
 }
 
-body {
-    text-align: center;
-    font-family: 'Noto Sans TC', sans-serif;
-}
-.container {
-    max-width: 1400;
-    padding: 0 12px;
-    margin: 0 auto;
-}
-.title-href {
-    font-size: 48px;
-    font-weight: 700;
-}
-
-.title-href:hover{
-    color: red;
+a {
+    text-decoration: none;
 }
