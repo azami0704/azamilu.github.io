@@ -1,0 +1,12 @@
+body {
+    text-align: center;
+
+}
+.title-href {
+    font-size: 48px;
+    font-weight: 700;
+}
+
+.title-href:hover{
+    color: red;
+}
