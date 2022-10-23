@@ -1,0 +1,242 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "微軟正黑體";
+    color: #FFFFFF;
+}
+
+ul,li {
+    padding-left: 0;
+    list-style: none;
+}
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+a {
+    display: inline-block;
+    text-decoration: none;
+    color: #FFFFFF;
+}
+main {
+    width: 1024px;
+    height: 768px;
+    background: url(./imeges/0101.jpg)no-repeat center center;
+    background-size: contain;
+    margin: 0 auto;
+    padding-top: 86px;
+}
+
+.pages {
+    width: 1024px;
+    height: 768px;
+    background: url(./imeges/0106.jpg)no-repeat center center;
+    background-size: contain;
+    margin: 0 auto;
+    padding-top: 86px;
+}
+
+.top {
+    /* background-color: rgba(255,255,255,0.5); */
+    width: 730px;
+    /* 中間區塊寬度 */
+    height: 236px;
+    margin: 0 auto;
+    display: flex;
+    gap: 27.5px;
+    justify-content: space-between;
+    
+}
+.pages .top {
+    height: 205px;
+}
+.tab {
+    /* background-color: rgba(255, 255, 255, 0.5); */
+    height: 31px;
+    width: 730px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    column-gap: 40px;
+}
+.tab a {
+    letter-spacing: .3em;
+    padding: 6px 20px;
+    flex-basis: 100%;
+    font-size: 14px;
+    opacity: .5;
+    /* border: 1px solid #FFFFFF; */
+}
+.content {
+    /* background-color: rgba(190, 0, 0, 0.5); */
+    width: 100%;
+    height: 420px;
+}
+
+h1{
+    margin: 0;
+    margin-top: -12px;
+    width: 372px;
+    font-size: 53px;
+    flex-shrink: 0;
+}
+
+h1 span {
+    letter-spacing: .55rem;
+}
+marquee {
+    font-size: 14px;
+    color: #DCA7A7;
+}
+
+.logos img {
+    height: 53px;
+    width: 53px;
+    margin-bottom: 5px;
+}
+
+.master p {
+    margin-top: 14px;
+    font-size: 14px;
+}
+
+footer {
+    text-align: center;
+    color: #DCA7A7;
+}
+.content {
+    display: flex;
+    align-items: flex-start;
+}
+.content-title {
+    font-size: 14px;
+    width: 20px;
+    padding-top: 5%;
+}
+
+.event-title {
+    padding-top: 2.5%;
+}
+
+.intro-link{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    width: 220px;
+    height: 320px;
+    padding: 42px 0;
+    margin-right: 36px;
+    font-size: 33px;
+    font-weight: 700;
+}
+.intro-link a:hover {
+    color: #00B3B7;
+}
+
+.update-txt {
+    height: 229px;
+    width: 125px;
+    /* padding-left: 5px; */
+    padding-top: 20%;
+    text-align: center;
+}
+.update-txt span {
+    color: #898989;
+}
+
+.txt-black {
+    font-weight: 700;
+    color: black;
+}
+
+.history,.about {
+    padding-top: 3%;
+    font-size: 13px;
+}
+
+.history {
+    margin-left: 56px;
+    width: 380px;
+    text-align: justify;
+}
+
+
+
+.about {
+    margin-left: 82px;
+    width: 220px;
+}
+
+.event {
+    margin-top: 32px;
+    height: calc(100% - 64px);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.event input{
+    display: none;
+}
+
+.event label {
+    margin-left: 56px;
+    margin-bottom: 16px;
+    text-decoration: underline;
+    width: 100px;
+    margin-right: 105px;
+    font-size: 14px;
+}
+label[for="tab4"] {
+    margin-bottom: 150px;
+}
+
+.event-detail {
+    order: 1;
+    height: 50%;
+    font-size: 13px;
+    width: 236px;
+    margin-right: 24px;
+    padding: 8px 0;
+    /* outline: 1px solid #000; */
+}
+
+.event input:checked + label + .event-detail {
+    background-color: #0054A2;
+}
+
+.event input:checked + label {
+    color: #0054A2;
+}
+
+.link-list {
+    font-size: 14px;
+    padding-top: 3.5%;
+    width: 215px;
+    margin-right: 48px;
+    padding-left: 48px;
+    /* border: 1px solid #FFF; */
+}
+
+
+.link-list li{
+    margin-bottom: 16px;
+}
+
+.link-list a {
+    letter-spacing: 1px;
+    padding: 2px 4px;
+}
+
+.link-list a:hover {
+    background-color: #0054A2;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
