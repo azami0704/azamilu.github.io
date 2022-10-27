@@ -3,50 +3,138 @@
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
-body {
-	line-height: 1;
-}
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
 }
 
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* reset END */
 :root {
     --white: #FFF;
     --black: #000;
@@ -69,29 +157,27 @@ table {
     --line-normal: 10px
 }
 
-
 * {
     box-sizing: border-box;
 }
 
 body {
     background-color: rgb(241, 241, 240);
-    font-family: 'Rubik Mono One', sans-serif;
+    font-family: 'Rubik Mono One', 'Noto Sans TC', sans-serif;
     padding-top: 1vw;
 }
+
+/* base set END */
 
 .spring {
     background-color: var(--spring);
 }
-
 .summer {
     background-color: var(--summer);
 }
-
 .fall {
     background-color: var(--fall);
 }
-
 .winter {
     background-color: var(--winter);
 }
@@ -101,7 +187,7 @@ body {
     max-height: 95vh;
     aspect-ratio: 4/3;
     padding: 12px;
-    margin-left: 7vw;
+    margin-left: 5vw;
     display: grid;
     position: relative;
     grid-template: 0.5fr 5px 0.5fr 10px 10px repeat(6, 1fr) / repeat(7, 1fr);
@@ -127,13 +213,11 @@ body {
     border-right: var(--line-thin) solid var(--winter-darken);
 }
 
-
-.container >.item {
+.container>.item {
     text-align: center;
     display: flex;
     justify-content: center;
     padding: 10%;
-    /* outline: 1px solid #ccc; */
 }
 
 .container .month {
@@ -147,19 +231,27 @@ body {
     grid-area: 2 / 1 / 3 /-1;
 }
 
-.spring .decoration-line {
+.spring .decoration-line,
+.spring .day.bottom::after,
+.spring .box-button {
     background-color: var(--spring-darken);
 }
 
-.summer .decoration-line {
+.summer .decoration-line,
+.summer .day.bottom::after,
+.summer .box-button {
     background-color: var(--summer-darken);
 }
 
-.fall .decoration-line {
+.fall .decoration-line,
+.fall .day.bottom::after,
+.fall .box-button {
     background-color: var(--fall-darken);
 }
 
-.winter .decoration-line {
+.winter .decoration-line,
+.winter .day.bottom::after,
+.winter .box-button {
     background-color: var(--winter-darken);
 }
 
@@ -197,11 +289,13 @@ body {
     border-top: 0;
 }
 
-.container .day:nth-child(7n+12) {
+/* .container .day:nth-child(7n+12) {
     color: var(--holiday-red);
-}
+} */
 
-.container .day:nth-child(7n+13) {
+.container .day:nth-child(7n+13),
+input:checked+label,
+.holiday {
     color: var(--holiday-red);
 }
 
@@ -287,6 +381,7 @@ body {
     left: 100%;
     text-align: center;
     background-color: transparent;
+    overflow: hidden;
 }
 
 .tool.spring {
@@ -308,7 +403,8 @@ body {
 .reset {
     display: block;
     text-decoration: none;
-    padding: 0.5vw;
+    padding: 1vw;
+    margin-right: 3vw;
     color: var(--white);
 }
 
@@ -350,24 +446,7 @@ body {
     left: -1px;
 }
 
-.spring .day.bottom::after {
-    background-color: var(--spring-darken);
-}
-
-.summer .day.bottom::after {
-    background-color: var(--summer-darken);
-}
-
-.fall .day.bottom::after {
-    background-color: var(--fall-darken);
-}
-
-.winter .day.bottom::after {
-    background-color: var(--winter-darken);
-}
-
 form {
-    margin-top: 2vw;
     font-size: 1.5vw;
     padding: 1vw 0 0 0;
     color: var(--white);
@@ -380,7 +459,7 @@ input {
     font-size: 1.2vw;
     font-weight: 700;
     margin: .5vw;
-    padding-left:.5vw;
+    padding-left: .5vw;
 }
 
 .spring input {
@@ -402,7 +481,7 @@ input {
 input[type="submit"] {
     margin: 10px 0 0 0;
     width: 100%;
-    padding: .5vw 0;
+    padding: .2vw 0;
     font-size: 1.5vw;
     color: var(--white);
 }
@@ -432,3 +511,45 @@ input:focus {
     box-shadow: 0;
     outline: 0;
 }
+
+input[type="radio"],
+input[type="checkbox"] {
+    display: none;
+}
+
+.switch-search {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    transform: translateX(-100%);
+    transition: .25s;
+}
+.switch {
+    margin-top: 2vw;
+    padding-left: 2vw;
+}
+.search {
+    border-top: 2px solid #FFF;
+    padding-left: 2vw;
+}
+
+input[type="checkbox"]:checked+.switch-search {
+    transform: translateX(-2vw);
+}
+
+.box-button {
+    position: absolute;
+    top: 2vw;
+    left: 100%;
+    width: 2vw;
+    height: 100%;
+    cursor: e-resize;
+}
+
+label[for="CH"],
+label[for="EN"]{
+    cursor: pointer;
+}
+
