@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="./reset.css">
     <link rel="stylesheet" href="./style.css">
     <title>萬年曆作業</title>
+    <!-- v1.0 2022/10/29 16:18-->
 </head>
 
 <body>
@@ -205,41 +206,31 @@ $month = (isset($_GET['m'])) ? $_GET['m'] : date('n');
         <?php
         foreach ($cal as $i => $day) {
             // 判斷是否為今日
-            if ($day == $today) {
-                //周六或周日判斷
-                if(date('m', strtotime($day)) != date('m', strtotime($setDay))){
-                    if (date('N', strtotime($day)) == 6 || date('w', strtotime($day)) == 0) {
-                        echo '<div class="item day holiday"><p class="today opacity">';
-                        echo date('j', strtotime($day));
-                        echo "</p></div>";
-                    } else {
-                            echo '<div class="item day"><p class="today opacity">';
-                            echo date('j', strtotime($day));
-                            echo "</p></div>";
-                    }
-                }else{
-                    if (date('N', strtotime($day)) == 6 || date('w', strtotime($day)) == 0) {
-                        echo '<div class="item day holiday"><p class="today">';
-                        echo date('j', strtotime($day));
-                        echo "</p></div>";
-                    } else {
-                            echo '<div class="item day"><p class="today">';
-                            echo date('j', strtotime($day));
-                            echo "</p></div>";
-                    }
-                }
-                //元旦判斷
-            } else if (date('m-d', strtotime($day)) == '01-01') {
+            if (date('m-d', strtotime($day)) == '01-01') {
                 if (date('m', strtotime($day)) != date('m', strtotime($setDay))) {
-                    echo '<div class="item day holiday"><p class="opacity">';
-                    echo date('j', strtotime($day));
-                    echo '</p><p class="holiday-txt opacity">元旦';
-                    echo "</p></div>";
+                    if($day == $today){
+                        echo '<div class="item day today holiday"><p class="opacity">';
+                        echo date('j', strtotime($day));
+                        echo '</p><p class="holiday-txt opacity">元旦';
+                        echo "</p></div>";
+                    }else{
+                        echo '<div class="item day holiday"><p class="opacity">';
+                        echo date('j', strtotime($day));
+                        echo '</p><p class="holiday-txt opacity">元旦';
+                        echo "</p></div>";
+                    }
                 } else {
-                    echo '<div class="item day holiday"><p>';
-                    echo date('j', strtotime($day));
-                    echo '</p><p class="holiday-txt">元旦';
-                    echo "</p></div>";
+                    if($day == $today){
+                        echo '<div class="item day today thisMonth holiday"><p>';
+                        echo date('j', strtotime($day));
+                        echo '</p><p class="holiday-txt">元旦';
+                        echo "</p></div>";
+                    }else{
+                        echo '<div class="item day holiday"><p>';
+                        echo date('j', strtotime($day));
+                        echo '</p><p class="holiday-txt">元旦';
+                        echo "</p></div>";
+                    }
                 }
                 //228判斷
             } else if (date('m-d', strtotime($day)) == '02-28') {
@@ -310,6 +301,30 @@ $month = (isset($_GET['m'])) ? $_GET['m'] : date('n');
                         echo "</p></div>";
                     }
                 }
+            }else if ($day == $today) {
+                //周六或周日判斷
+                if(date('m', strtotime($day)) != date('m', strtotime($setDay))){
+                    if (date('N', strtotime($day)) == 6 || date('w', strtotime($day)) == 0) {
+                        echo '<div class="item day today holiday"><p class=" opacity">';
+                        echo date('j', strtotime($day));
+                        echo "</p></div>";
+                    } else {
+                            echo '<div class="item today day"><p class=" opacity">';
+                            echo date('j', strtotime($day));
+                            echo "</p></div>";
+                    }
+                }else{
+                    if (date('N', strtotime($day)) == 6 || date('w', strtotime($day)) == 0) {
+                        echo '<div class="item day today thisMonth holiday"><p>';
+                        echo date('j', strtotime($day));
+                        echo "</p></div>";
+                    } else {
+                            echo '<div class="item day today thisMonth"><p>';
+                            echo date('j', strtotime($day));
+                            echo "</p></div>";
+                    }
+                }
+                //元旦判斷
             } else if (date('m', strtotime($day)) != date('m', strtotime($setDay))) {
                     if (date('N', strtotime($day)) == 6 || date('w', strtotime($day)) == 0) {
                         echo '<div class="item day holiday"><p class="opacity">';

@@ -163,7 +163,7 @@ input:checked+label,
     color: var(--holiday-red);
 }
 
-.container .today::before {
+.container .today.thisMonth::before {
     content: '';
     position: absolute;
     top: .8vw;
@@ -175,7 +175,7 @@ input:checked+label,
     transition: .25s;
 }
 
-.container .today.opacity::before {
+.container .today .opacity::before {
     content: '';
     position: absolute;
     top: .8vw;
@@ -187,7 +187,7 @@ input:checked+label,
     opacity: .5;
 }
 
-.container .today:hover::before {
+.container .today.thisMonth:hover::before {
     animation: jump .5s linear;
 }
 
