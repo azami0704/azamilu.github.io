@@ -434,7 +434,7 @@ label[for="EN"]:hover::after {
     color: var(--holiday-red);
     font-size: .8vw;
     position: absolute;
-    bottom: 90%;
+    bottom: 87%;
     left: 2vw;
     padding: .1vw 0;
     /* white-space: nowrap; */
@@ -444,7 +444,7 @@ label[for="CH"]:hover::before,
 label[for="EN"]:hover::before {
     content: '';
     position: absolute;
-    bottom: 88.5%;
+    bottom: 85%;
     left: 4vw;
     border-left: .5vw solid transparent;
     border-right: .5vw solid transparent;
