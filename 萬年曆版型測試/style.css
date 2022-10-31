@@ -286,25 +286,25 @@ input:checked+label,
 
 .reset.spring:hover,
 .spring label[for="EN"]:hover::after,
-.spring label[for="CH"]:hover::after {
+.spring label[for="ASIA"]:hover::after {
     background-color: var(--spring-lighten);
 }
 
 .reset.summer:hover,
 .summer label[for="EN"]:hover::after,
-.summer label[for="CH"]:hover::after {
+.summer label[for="ASIA"]:hover::after {
     background-color: var(--summer-lighten);
 }
 
 .reset.fall:hover,
 .fall label[for="EN"]:hover::after,
-.fall label[for="CH"]:hover::after {
+.fall label[for="ASIA"]:hover::after {
     background-color: var(--fall-lighten);
 }
 
 .reset.winter:hover,
 .winter label[for="EN"]:hover::after,
-.winter label[for="CH"]:hover::after {
+.winter label[for="ASIA"]:hover::after {
     background-color: var(--winter-lighten);
 }
 
@@ -422,13 +422,13 @@ input[type="checkbox"]:checked+.switch-search {
     cursor: e-resize;
 }
 
-label[for="CH"],
+label[for="ASIA"],
 label[for="EN"] {
     padding: .5vw 1vw;
     cursor: pointer;
 }
 
-label[for="CH"]:hover::after,
+label[for="ASIA"]:hover::after,
 label[for="EN"]:hover::after {
     content: attr(data-tooltip);
     color: var(--holiday-red);
@@ -440,7 +440,7 @@ label[for="EN"]:hover::after {
     /* white-space: nowrap; */
 }
 
-label[for="CH"]:hover::before,
+label[for="ASIA"]:hover::before,
 label[for="EN"]:hover::before {
     content: '';
     position: absolute;
@@ -454,22 +454,22 @@ label[for="EN"]:hover::before {
     left: 8.5vw;
 }
 
-.spring label[for="CH"]:hover::before,
+.spring label[for="ASIA"]:hover::before,
 .spring label[for="EN"]:hover::before {
     border-top: .5vw solid var(--spring-lighten);
 }
 
-.summer label[for="CH"]:hover::before,
+.summer label[for="ASIA"]:hover::before,
 .summer label[for="EN"]:hover::before {
     border-top: .5vw solid var(--summer-lighten);
 }
 
-.fall label[for="CH"]:hover::before,
+.fall label[for="ASIA"]:hover::before,
 .fall label[for="EN"]:hover::before {
     border-top: .5vw solid var(--fall-lighten);
 }
 
-.winter label[for="CH"]:hover::before,
+.winter label[for="ASIA"]:hover::before,
 .winter label[for="EN"]:hover::before {
     border-top: .5vw solid var(--winter-lighten);
 }

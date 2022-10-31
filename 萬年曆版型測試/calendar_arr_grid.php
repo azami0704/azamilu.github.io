@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="./reset.css">
     <link rel="stylesheet" href="./style.css">
     <title>萬年曆作業</title>
-    <!-- v1.0.1 2022/10/29 20:57-->
+    <!-- v1.0.2 2022/10/31 18:09-->
 </head>
 
 <body>
@@ -50,16 +50,15 @@ if ($nextMonth > 12) {
 }
 
 // 週日開始格式
-if (isset($_GET['v']) && $_GET['v'] == "EN") {
-
+if (isset($_GET['v']) && $_GET['v'] == "ASIA") {
     $version = $_GET['v'];
     //以每月一日為座標
     $setDay = "$year-$month-1";
     //上個月的日期&天數設定
-    $firstDayWeek = date('w', strtotime($setDay));
+    $firstDayWeek = date('N', strtotime($setDay));
     $lastDays = date('t', strtotime($setDay));
-    $weekNum = ceil(($firstDayWeek + $lastDays) / 7);
-    $modDays = $weekNum * 7 - ($firstDayWeek + $lastDays);
+    $weekNum = ceil(($firstDayWeek + ($lastDays - 1)) / 7);
+    $monthMod = $weekNum * 7 - ($lastDays + ($firstDayWeek - 1));
     $monEN = date("F", strtotime($setDay));
     //設定上個月變數
     $preMonthDay = date('Y-m-d', strtotime('-1 month', strtotime($setDay)));
@@ -71,7 +70,7 @@ if (isset($_GET['v']) && $_GET['v'] == "EN") {
     $lastWeekStart = ($weekNum - 1) * 7;
 
     //印星期用陣列
-    $week = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "STA"];
+    $week = ["MON", "TUE", "WEN", "THU", "FRI", "STA", "SUN"];
     //上個月的日期
     for ($i = 0; $i < $PreMonthLastDay; $i++) {
         $calPre[] = date('Y-m-d', strtotime("+$i day", strtotime($preMonthDay)));
@@ -86,17 +85,17 @@ if (isset($_GET['v']) && $_GET['v'] == "EN") {
     }
 
     //將上個月跟下個月要印的日期加入本月陣列的頭跟尾
-    for ($i = 0; $i < $firstDayWeek; $i++) {
-        array_unshift($cal, $calPre[(count($calPre) - 1) - $i]);
+    for ($i = 1; $i < $firstDayWeek; $i++) {
+        array_unshift($cal, $calPre[count($calPre) - $i]);
     }
-    for ($i = 0; $i < $modDays; $i++) {
+    for ($i = 0; $i < $monthMod; $i++) {
         array_push($cal, $calNext[$i]);
     }
+    
 
 } else {
     //週一開始格式
     $version = '';
-
     //以每月一日為座標
     $setDay = "$year-$month-1";
     //上個月的日期&天數設定
@@ -108,17 +107,17 @@ if (isset($_GET['v']) && $_GET['v'] == "EN") {
     // 英文月份
     $monEN = date("F", strtotime($setDay));
     // 抓當月第一天是星期幾
-    $firstDayWeek = date('N', strtotime($setDay));
+    $firstDayWeek = date('w', strtotime($setDay));
     // 算出當月有幾天
     $lastDays = date('t', strtotime($setDay));
     //算出一個禮拜有幾週=整月天數+(1號的星期幾-1)再除7再無條件進位
-    $weekNum = ceil(($lastDays + ($firstDayWeek - 1)) / 7);
+    $weekNum = ceil(($lastDays + $firstDayWeek) / 7);
     //本月剩餘天數-抓下個月要加入的區段用
-    $monthMod = $weekNum * 7 - ($lastDays + ($firstDayWeek - 1));
+    $modDays = $weekNum * 7 - ($firstDayWeek + $lastDays);
     $lastWeekStart = ($weekNum - 1) * 7;
 
     //印星期用陣列
-    $week = ["MON", "TUE", "WEN", "THU", "FRI", "STA", "SUN"];
+    $week = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "STA"];
     //上個月的日期
     for ($i = 0; $i < $preMonthLastDay; $i++) {
         $calPre[] = date('Y-m-d', strtotime("+$i day", strtotime($preMonthDay)));
@@ -133,10 +132,10 @@ if (isset($_GET['v']) && $_GET['v'] == "EN") {
     }
 
     //將上個月跟下個月要印的日期加入本月陣列的頭跟尾
-    for ($i = 1; $i < $firstDayWeek; $i++) {
-        array_unshift($cal, $calPre[count($calPre) - $i]);
+    for ($i = 0; $i < $firstDayWeek; $i++) {
+        array_unshift($cal, $calPre[(count($calPre) - 1) - $i]);
     }
-    for ($i = 0; $i < $monthMod; $i++) {
+    for ($i = 0; $i < $modDays; $i++) {
         array_push($cal, $calNext[$i]);
     }
 }
@@ -147,6 +146,18 @@ $todayYear = date('Y');
 $todayMonth = date('m');
 $todayDay = date('d');
 
+$specialDay =[
+        '01-01'=>['元旦','holiday'],
+        '02-28'=>['和平紀念日','holiday'],
+        '03-08'=>['婦女節','normal'],
+        '04-22'=>['世界地球日','normal'],
+        '05-01'=>['勞動節','holiday'],
+        '09-18'=>['教師節','normal'],
+        '10-10'=>['國慶日','holiday'],
+        '10-25'=>['光復節','normal'],
+        '10-31'=>['萬聖節','normal'],
+        '12-25'=>['聖誕節','normal']
+];
 //四季變色用變數
 switch ($month) {
     case 3:
@@ -198,170 +209,103 @@ foreach ($week as $weeks) {
         <!-- 日期輸出區 -->
         <?php
 foreach ($cal as $i => $day) {
-    // 判斷是否為01-01
-    if (date('m-d', strtotime($day)) == '01-01') {
-        if (date('m', strtotime($day)) != date('m', strtotime($setDay))) {
-            if ($day == $today) {
-                echo '<div class="item day today holiday"><p class="opacity">';
-                echo date('j', strtotime($day));
-                echo '</p><p class="holiday-txt opacity">元旦';
-                echo "</p></div>";
-            } else {
-                echo '<div class="item day holiday"><p class="opacity">';
-                echo date('j', strtotime($day));
-                echo '</p><p class="holiday-txt opacity">元旦';
-                echo "</p></div>";
-            }
-        } else {
-            if ($day == $today) {
-                echo '<div class="item day today thisMonth holiday"><p>';
-                echo date('j', strtotime($day));
-                echo '</p><p class="holiday-txt">元旦';
-                echo "</p></div>";
-            } else {
-                echo '<div class="item day holiday"><p>';
-                echo date('j', strtotime($day));
-                echo '</p><p class="holiday-txt">元旦';
-                echo "</p></div>";
-            }
-        }
-        //228判斷
-    } else if (date('m-d', strtotime($day)) == '02-28') {
-        if (date('m', strtotime($day)) != date('m', strtotime($setDay))) {
-            if ($day == $today) {
-                echo '<div class="item day today holiday"><p class="opacity">';
-                echo date('j', strtotime($day));
-                echo '</p><p class="holiday-txt opacity">和平紀念日';
-                echo "</p></div>";
-            } else {
-                echo '<div class="item day holiday"><p class="opacity">';
-                echo date('j', strtotime($day));
-                echo '</p><p class="holiday-txt opacity">和平紀念日';
-                echo "</p></div>";
-            }
-        } else {
-            if ($day == $today) {
-                echo '<div class="item day today thisMonth holiday"><p>';
-                echo date('j', strtotime($day));
-                echo '</p><p class="holiday-txt">和平紀念日';
-                echo "</p></div>";
-            } else {
-                echo '<div class="item day holiday"><p>';
-                echo date('j', strtotime($day));
-                echo '</p><p class="holiday-txt">和平紀念日';
-                echo "</p></div>";
-            }
-        }
-        //05-01判斷
-    } else if (date('m-d', strtotime($day)) == '05-01') {
-        if (date('m', strtotime($day)) != date('m', strtotime($setDay))) {
-            if ($day == $today) {
-                echo '<div class="item day today holiday"><p class="opacity">';
-                echo date('j', strtotime($day));
-                echo '</p><p class="holiday-txt opacity">勞動節';
-                echo "</p></div>";
-            } else {
-                echo '<div class="item day holiday"><p class="opacity">';
-                echo date('j', strtotime($day));
-                echo '</p><p class="holiday-txt opacity">勞動節';
-                echo "</p></div>";
-            }
-        } else {
-            if ($day == $today) {
-                echo '<div class="item day today thisMonth holiday"><p>';
-                echo date('j', strtotime($day));
-                echo '</p><p class="holiday-txt">勞動節';
-                echo "</p></div>";
-            } else {
-                echo '<div class="item day holiday"><p>';
-                echo date('j', strtotime($day));
-                echo '</p><p class="holiday-txt">勞動節';
-                echo "</p></div>";
-            }
-        }
-        //10-10判斷
-    } else if (date('m-d', strtotime($day)) == '10-10') {
-        if (date('m', strtotime($day)) != date('m', strtotime($setDay))) {
-            if ($day == $today) {
-                echo '<div class="item day today holiday"><p class="opacity">';
-                echo date('j', strtotime($day));
-                echo '</p><p class="holiday-txt opacity">國慶日';
-                echo "</p></div>";
-            } else {
-                echo '<div class="item day holiday"><p class="opacity">';
-                echo date('j', strtotime($day));
-                echo '</p><p class="holiday-txt opacity">國慶日';
-                echo "</p></div>";
-            }
-        } else {
-            if ($day == $today) {
-                echo '<div class="item day today thisMonth holiday"><p>';
-                echo date('j', strtotime($day));
-                echo '</p><p class="holiday-txt">國慶日';
-                echo "</p></div>";
-            } else {
-                echo '<div class="item day holiday"><p>';
-                echo date('j', strtotime($day));
-                echo '</p><p class="holiday-txt">國慶日';
-                echo "</p></div>";
-            }
-        }
-        //12-25判斷(可能為非假日)
-    } else if (date('m-d', strtotime($day)) == '12-25') {
-        if (date('m', strtotime($day)) != date('m', strtotime($setDay))) {
-            if (date('N', strtotime($day)) == 6 || date('w', strtotime($day)) == 0) {
+    // 判斷特殊節日
+    $dayMonth = date('m-d', strtotime($day));
+    if (array_key_exists($dayMonth,$specialDay)) {
+        if($specialDay[$dayMonth][1]=='holiday'){
+            if (date('m', strtotime($day)) != date('m', strtotime($setDay))) {
                 if ($day == $today) {
                     echo '<div class="item day today holiday"><p class="opacity">';
                     echo date('j', strtotime($day));
-                    echo '</p><p class="holiday-txt opacity">聖誕節';
+                    echo '</p><p class="holiday-txt opacity">';
+                    echo "{$specialDay[$dayMonth][0]}";
                     echo "</p></div>";
                 } else {
                     echo '<div class="item day holiday"><p class="opacity">';
                     echo date('j', strtotime($day));
-                    echo '</p><p class="holiday-txt opacity">聖誕節';
+                    echo '</p><p class="holiday-txt opacity">';
+                    echo "{$specialDay[$dayMonth][0]}";
                     echo "</p></div>";
                 }
             } else {
                 if ($day == $today) {
-                    echo '<div class="item today day"><p class="opacity">';
-                    echo date('j', strtotime($day));
-                    echo '</p><p class="spacial-txt opacity">聖誕節';
-                    echo "</p></div>";
-                } else {
-                    echo '<div class="item day"><p class="opacity">';
-                    echo date('j', strtotime($day));
-                    echo '</p><p class="spacial-txt opacity">聖誕節';
-                    echo "</p></div>";
-                }
-            }
-        } else {
-            if (date('N', strtotime($day)) == 6 || date('w', strtotime($day)) == 0) {
-                if ($day == $today) {
                     echo '<div class="item day today thisMonth holiday"><p>';
                     echo date('j', strtotime($day));
-                    echo '</p><p class="holiday-txt">聖誕節';
+                    echo '</p><p class="holiday-txt">';
+                    echo "{$specialDay[$dayMonth][0]}";
                     echo "</p></div>";
                 } else {
                     echo '<div class="item day holiday"><p>';
                     echo date('j', strtotime($day));
-                    echo '</p><p class="holiday-txt">聖誕節';
-                    echo "</p></div>";
-                }
-            } else {
-                if ($day == $today) {
-                    echo '<div class="item today thisMonth day"><p>';
-                    echo date('j', strtotime($day));
-                    echo '</p><p class="spacial-txt">聖誕節';
-                    echo "</p></div>";
-                } else {
-                    echo '<div class="item day"><p>';
-                    echo date('j', strtotime($day));
-                    echo '</p><p class="spacial-txt">聖誕節';
+                    echo '</p><p class="holiday-txt">';
+                    echo "{$specialDay[$dayMonth][0]}";
                     echo "</p></div>";
                 }
             }
+        }else{
+            if (date('m', strtotime($day)) != date('m', strtotime($setDay))) {
+                if (date('N', strtotime($day)) == 6 || date('w', strtotime($day)) == 0) {
+                    if ($day == $today) {
+                        echo '<div class="item day today holiday"><p class="opacity">';
+                        echo date('j', strtotime($day));
+                        echo '</p><p class="holiday-txt opacity">';
+                        echo "{$specialDay[$dayMonth][0]}";
+                        echo "</p></div>";
+                    } else {
+                        echo '<div class="item day holiday"><p class="opacity">';
+                        echo date('j', strtotime($day));
+                        echo '</p><p class="holiday-txt opacity">';
+                        echo "{$specialDay[$dayMonth][0]}";
+                        echo "</p></div>";
+                    }
+                } else {
+                    if ($day == $today) {
+                        echo '<div class="item today day"><p class="opacity">';
+                        echo date('j', strtotime($day));
+                        echo '</p><p class="spacial-txt opacity">';
+                        echo "{$specialDay[$dayMonth][0]}";
+                        echo "</p></div>";
+                    } else {
+                        echo '<div class="item day"><p class="opacity">';
+                        echo date('j', strtotime($day));
+                        echo '</p><p class="spacial-txt opacity">';
+                        echo "{$specialDay[$dayMonth][0]}";
+                        echo "</p></div>";
+                    }
+                }
+            } else {
+                if (date('N', strtotime($day)) == 6 || date('w', strtotime($day)) == 0) {
+                    if ($day == $today) {
+                        echo '<div class="item day today thisMonth holiday"><p>';
+                        echo date('j', strtotime($day));
+                        echo '</p><p class="holiday-txt">';
+                        echo "{$specialDay[$dayMonth][0]}";
+                        echo "</p></div>";
+                    } else {
+                        echo '<div class="item day holiday"><p>';
+                        echo date('j', strtotime($day));
+                        echo '</p><p class="holiday-txt">';
+                        echo "{$specialDay[$dayMonth][0]}";
+                        echo "</p></div>";
+                    }
+                } else {
+                    if ($day == $today) {
+                        echo '<div class="item today thisMonth day"><p>';
+                        echo date('j', strtotime($day));
+                        echo '</p><p class="spacial-txt">';
+                        echo "{$specialDay[$dayMonth][0]}";
+                        echo "</p></div>";
+                    } else {
+                        echo '<div class="item day"><p>';
+                        echo date('j', strtotime($day));
+                        echo '</p><p class="spacial-txt">';
+                        echo "{$specialDay[$dayMonth][0]}";
+                        echo "</p></div>";
+                    }
+                }
+            }
         }
-        //判斷是否為今日
+        //是否為今日
     } else if ($day == $today) {
         if (date('m', strtotime($day)) != date('m', strtotime($setDay))) {
             if (date('N', strtotime($day)) == 6 || date('w', strtotime($day)) == 0) {
@@ -436,7 +380,7 @@ foreach ($cal as $i => $day) {
                 <form action="./calendar_arr_grid.php" method="get" class="switch <?=$season?>">
                     <input type="text" name="y" value="<?=$year?>" style="display:none;">
                     <input type="text" name="m" value="<?=$month?>" style="display:none;">
-                    <input type="radio" name="v" id="CH" value=""><label for="CH" data-tooltip="START FROM MONDAY">M</label>
+                    <input type="radio" name="v" id="ASIA" value="ASIA"><label for="ASIA" data-tooltip="START FROM MONDAY">M</label>
                     <input type="radio" name="v" id="EN" value="EN"><label for="EN" data-tooltip="START FROM SUNDAY">S</label>
                     <input type="submit" value="SWITCH!">
                 </form>
