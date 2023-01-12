@@ -1,15 +1,16 @@
 const about = document.getElementById('about');
 const skill = document.getElementById('skill');
+const work = document.getElementById('work');
 const aboutTitle = document.querySelector('.about-title');
 const skillTitle = document.querySelector('.skill-title');
+const workTitle = document.querySelector('.work-title');
 const progressBar =document.querySelectorAll('.progress-bar')
 const skillSquare = document.querySelectorAll('.skill-list-item-square')
 const skillPercent = document.querySelectorAll('.skill-list-item-percent')
 
 let progressExecuted = false;
-window.addEventListener('scroll',function(e){
+window.addEventListener('scroll',()=>{
     //about動態標題
-    const topPos = about.getBoundingClientRect().top;
     if(window.scrollY>=about.offsetTop-650){
         aboutTitle.style.cssText="transform: translateX(0);opacity: 1;";
     }else{
@@ -19,6 +20,11 @@ window.addEventListener('scroll',function(e){
         skillTitle.style.cssText="transform: translateY(0);opacity: 1;";
     }else{
         skillTitle.style.cssText="transform: translateY(-100%);opacity: 0;";
+    }
+    if(window.scrollY>=work.offsetTop-800){
+        workTitle.style.cssText="transform: translateX(0);opacity: 1;";
+    }else{
+        workTitle.style.cssText="transform: translateX(-100%);opacity: 0;";
     }
 
     if(window.scrollY>=skill.offsetTop-700){
@@ -38,7 +44,7 @@ window.addEventListener('scroll',function(e){
         }
         progressExecuted = true;
     }else if(window.scrollY<skill.offsetTop-700){
-        progressBar.forEach((item)=>{
+        progressBar.forEach(item=>{
             item.style.width=`0%`;
         })
         progressExecuted = false;

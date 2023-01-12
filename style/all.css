@@ -59,6 +59,11 @@ img {
 .nav-link:hover {
     color: var(--css);
 }
+
+.nav-link:focus {
+    color: var(--gray);
+}
+
 .nav-link::before {
     content: '';
     position: absolute;
@@ -68,12 +73,14 @@ img {
     right: 0;
     width: 100%;
     height: 100%;
-    transform: translateX(-100%);
+    transform: translateX(-120%);
     background-color: #fff;
     transition: .25s;
     z-index: -1;
 }
-
+.nav-scrollspy .nav-link.active {
+    color: var(--black);
+}
 .nav-scrollspy .nav-link.active::before {
     transform: translateX(0);
 }
@@ -167,7 +174,8 @@ img {
 #about,#skill,#work {
     background-color: rgb(222, 229, 236);
 }
-.about::before {
+
+#about::before {
     content: '';
     display: block;
     position: sticky;
@@ -196,6 +204,7 @@ img {
 .work-title {
     top: 3rem;
     opacity: 1;
+    transform: translateX(-100%);
     transition: .6s;
     z-index: 1;
 }
