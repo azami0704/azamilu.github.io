@@ -36,7 +36,7 @@ a {
 }
 
 img {
-    vertical-align: bottom;
+    vertical-align: middle;
     width: 100%;
     height: auto;
 }
@@ -469,6 +469,39 @@ svg {
         background-color: currentColor;
     }
 }
+.skill-list {
+    margin-top: 3rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+}
+
+.skill-list h3 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--php-darken);
+}
+.skill-list .list {
+    width: max(300px,20vw);
+}
+
+.skill-list .list li {
+    text-align: left;
+    font-size: 24px;
+}
+.skill-list .list ul {
+    width: fit-content;
+    margin: auto;
+}
+.icon {
+    width: 30px;
+    margin-right: 8px;
+}
 
 
+.skill-item-title {
+    overflow: hidden;
+    transition: .4s;
+}
 
