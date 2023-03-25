@@ -452,7 +452,7 @@ svg {
 }
 @media (max-width:959px) and (min-width:768px) {
     .exp-list {
-        margin-left: -15vw;
+        margin-left: -5vw;
     }
 }
 @media (max-width:767px) {
@@ -476,9 +476,20 @@ svg {
         border-radius: 50%;
         top: 4.5rem;
         left: -.4rem;
-        width: max(1vw,10px);
-        height: max(1vw,10px);
+        width: max(2vw,12px);
+        height: max(2vw,12px);
         background-color: currentColor;
+    }
+
+    .exp-list :is(li:first-child,li:nth-child(2)) ::before {
+        content: '';
+        top: 4.5rem;
+        bottom: -5rem;
+    }
+
+    .exp-item-detail-list::before {
+        content: '';
+        top: -7.1rem;
     }
 }
 .skill-list {
