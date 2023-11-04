@@ -55,13 +55,11 @@ window.addEventListener('scroll',()=>{
         if(!progressExecuted){
             if(document.documentElement.lang=='zh_Hant'){
                 skillItemTitleZH.forEach((item,idx) => {
-                    console.log(item);
                     item.style.cssText="transform: translateX(0);";
                     skillItemTitleEN[idx].style.cssText="display:none";
                 });
             }else{
                     skillItemTitleEN.forEach((item,idx) => {
-                    console.log(item);
                     item.style.cssText="transform: translateX(0);";
                     skillItemTitleZH[idx].style.cssText="display:none";
                 });
